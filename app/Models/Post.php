@@ -2,34 +2,33 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Post extends Authenticatable
+class Post extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
 
-    protected $fillable = [
+    protected $guarded = [
         'id',
     ];
 
     protected function casts(): array
     {
         return [
-            'published_at' => 'datetime',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];
     }
 
-    public $timestamps = false;
-
-
-    public function subjects(): HasMany
+    public function user(): BelongsTo
     {
-        return $this->hasMany(Subject::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 }

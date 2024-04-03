@@ -12,9 +12,12 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
-        'id',
-        'username',
         'name',
         'email',
         'password',
@@ -40,15 +43,16 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'created_at' => 'datetime',
-            'updated_at' => 'datetime',
         ];
     }
 
-    public function subjects(): HasMany
+    public function post(): HasMany
     {
-        return $this->hasMany(Subject::class);
+        return $this->hasMany(Post::class);
+    }
+
+    public function comment(): HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
 }
-
-

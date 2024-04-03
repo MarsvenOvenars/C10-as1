@@ -2,9 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Category;
-use App\Models\Post;
 use App\Models\User;
+use App\Models\Post;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,16 +21,13 @@ class CommentFactory extends Factory
     {
         $user = User::inRandomOrder()->first();
         $post = Post::inRandomOrder()->first();
-
-        $createdAt = fake()->dateTimeBetween('-6 months', 'now');
+        $createdAt = fake()->dateTimeBetween('-6 weeks', 'now');
         return [
             'user_id' => $user->id,
             'post_id' => $post->id,
-            'content' => fake()->paragraph(rand(1, 3)),
-            'like_count' => fake()->numberBetween(100, 500) * 1000,
+            'like_count' => fake()->numberBetween(10, 5000),
             'created_at' => Carbon::parse($createdAt),
             'updated_at' => Carbon::parse($createdAt)->addDays(rand(0, 6))->addHours(rand(0, 23))->addMinutes(rand(0, 59)),
         ];
     }
 }
-

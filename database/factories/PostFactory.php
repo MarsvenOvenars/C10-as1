@@ -2,16 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Models\Category;
-use App\Models\Comment;
 use App\Models\User;
+use App\Models\Category;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
  */
-class PostFactory extends Factory
+class CommentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -22,16 +21,14 @@ class PostFactory extends Factory
     {
         $user = User::inRandomOrder()->first();
         $category = Category::inRandomOrder()->first();
-
-        $createdAt = fake()->dateTimeBetween('-6 months', 'now');
+        $createdAt = fake()->dateTimeBetween('-6 weeks', 'now');
         return [
             'user_id' => $user->id,
             'category_id' => $category->id,
-            'title' => fake()->paragraph(rand(1, 3)),
+            'title' => fake()->title(rand(1, 3)),
             'content' => fake()->paragraph(rand(1, 3)),
-            'view_count' => fake()->numberBetween(100, 500) * 1000,
-            'like_count' => fake()->numberBetween(100, 500) * 1000,
-            'published_at' => Carbon::parse($createdAt),
+            'view_count' => fake()->numberBetween(1, 500),
+            'like_count' => fake()->numberBetween(10, 4000),
             'created_at' => Carbon::parse($createdAt),
             'updated_at' => Carbon::parse($createdAt)->addDays(rand(0, 6))->addHours(rand(0, 23))->addMinutes(rand(0, 59)),
         ];

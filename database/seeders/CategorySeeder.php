@@ -8,6 +8,9 @@ use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
 {
+    /**
+     * Run the database seeds.
+     */
     public function run(): void
     {
         $objs = [
@@ -27,6 +30,6 @@ class CategorySeeder extends Seeder
             Category::create([
                 'name' => $obj,
             ]);
-        }
+        };
     }
 }
