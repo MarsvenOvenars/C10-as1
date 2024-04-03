@@ -2,19 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Post extends Model
+class Post extends Authenticatable
 {
-    protected $guarded = [
+    use HasFactory, Notifiable;
+
+    protected $fillable = [
         'id',
-        'user_id',
-        'category_id',
-        'title',
-        'content',
-        'view_count',
-        'like_count',
     ];
 
     protected function casts(): array
@@ -26,11 +25,10 @@ class Post extends Model
         ];
     }
 
-
-
     public $timestamps = false;
 
-    public function subject(): HasMany
+
+    public function subjects(): HasMany
     {
         return $this->hasMany(Subject::class);
     }
